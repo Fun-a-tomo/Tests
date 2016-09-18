@@ -3,5 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="C:/Users/funa/Downloads/pleiades-e4.5-java-jre_20150624/pleiades/workspace/TestTweenExperience/twitter4j-4.0.4/lib/twitter4j-core-4.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/funa/Downloads/pleiades-e4.5-java-jre_20150624/pleiades/workspace/TestTweenExperience/twitter4j-4.0.4/lib/twitter4j-stream-4.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/funa/Downloads/pleiades-e4.5-java-jre_20150624/pleiades/workspace/TestTweenExperience/kuromoji-0.7.7/lib/kuromoji-0.7.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/funa/Downloads/pleiades-e4.5-java-jre_20150624/pleiades/workspace/TestTweenExperience/lucene-gosen-4.6.0-ipadic.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
