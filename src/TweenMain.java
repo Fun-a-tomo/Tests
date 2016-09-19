@@ -15,9 +15,7 @@ public class TweenMain {
 
 		//テストコード試験
 		if(FOA){
-			MorphAnal ma = new MorphAnal("ハタケ、生きとったんかワレ");
-			ma.MorphAnalResult();
-			ma.EndMorphAnal();
+			TweetBase twi = new TweetBase();
 		}
 		else{
 			ExtStreamListener esl = new ExtStreamListener(account);

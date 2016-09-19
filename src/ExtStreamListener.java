@@ -85,9 +85,7 @@ public class ExtStreamListener extends TweetBase implements  StatusListener {
 	        Date created = status.getCreatedAt(); //. ツイート日時
 
 	        System.out.println( "id = " + id + ", username = " + username + ", text = " + text );
-	        
-			i = Math.abs(ran.nextInt());
-			if((i%(prob/2))==1){
+			if(RandomResult(2)){
 				try {
 					Reply(status);
 				} catch (Throwable e) {
@@ -118,7 +116,7 @@ public class ExtStreamListener extends TweetBase implements  StatusListener {
 		ma.EndMorphAnal();
 		if(!result.isEmpty()){
 			tweet="@"+stat.getUser().getScreenName()+" "+stat.getUser().getName()+"、"+result+"んかワレ！";
-		
+
 			twi.updateStatus(new StatusUpdate(tweet).inReplyToStatusId(stat.getId()));
 		}
 	}
