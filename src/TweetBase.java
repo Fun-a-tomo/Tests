@@ -40,7 +40,7 @@ public class TweetBase implements Runnable {
 	public void run() {
 		// TODO 自動生成されたメソッド・スタブ
 		while(true){
-			if(RandomResult(1)){
+			if(RandomResult(10)){
 				SelfyTweet();
 			}
 			System.out.println("Random Result = " + i);
@@ -55,6 +55,7 @@ public class TweetBase implements Runnable {
 
 	public void Tweet(String twit){
 		try {
+			System.out.println("Tweet ------::"+twit);
 			stat = twi.updateStatus(twit);
 		} catch (TwitterException e) {
 			// TODO 自動生成された catch ブロック
@@ -71,7 +72,7 @@ public class TweetBase implements Runnable {
 	private void InputSelfy() throws IOException{
 		String line;
 		InputStream io = new FileInputStream(new File(path));
-		BufferedReader buf = new BufferedReader(new InputStreamReader(io));
+		BufferedReader buf = new BufferedReader(new InputStreamReader(io,"UTF-8"));
 		while((line = buf.readLine()) != null){
 			this.selfy.add(line);
 		}
@@ -81,7 +82,7 @@ public class TweetBase implements Runnable {
 
 	protected boolean RandomResult(int k){
 		i = Math.abs(ran.nextInt());
-		if(i%(prob*k)==1)return true;
+		if(i%(prob/k)==0)return true;
 		else return false;
 	}
 
