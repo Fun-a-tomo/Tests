@@ -67,33 +67,38 @@ public class ExtStreamListener extends TweetBase implements  StatusListener {
         User user = status.getUser();
 
         //自ツイートは無視
-        if(!user.getScreenName().equals(account)){
+        try {
+			if(!user.getScreenName().equals(twi.getScreenName())){
 
-	        //. 位置情報が含まれていれば取得する
-	        GeoLocation location = status.getGeoLocation();
-	        if( location != null ){
-	            double dlat = location.getLatitude();
-	            double dlng = location.getLongitude();
-	            lat = dlat;
-	            lng = dlng;
-	        }
+			    //. 位置情報が含まれていれば取得する
+			    GeoLocation location = status.getGeoLocation();
+			    if( location != null ){
+			        double dlat = location.getLatitude();
+			        double dlng = location.getLongitude();
+			        lat = dlat;
+			        lng = dlng;
+			    }
 
-	        long id = status.getId(); //. ツイートID
-	        String text = status.getText(); //. ツイート本文
-	        long userid = user.getId(); //. ユーザーID
-	        String username = user.getScreenName(); //. ユーザー表示名
-	        Date created = status.getCreatedAt(); //. ツイート日時
+			    long id = status.getId(); //. ツイートID
+			    String text = status.getText(); //. ツイート本文
+			    long userid = user.getId(); //. ユーザーID
+			    String username = user.getScreenName(); //. ユーザー表示名
+			    Date created = status.getCreatedAt(); //. ツイート日時
 
-	        System.out.println( "id = " + id + ", username = " + username + ", text = " + text );
-			if(RandomResult(2)){
-				try {
-					Reply(status);
-				} catch (Throwable e) {
-					// TODO 自動生成された catch ブロック
-					e.printStackTrace();
+			    System.out.println( "id = " + id + ", username = " + username + ", text = " + text );
+				if(RandomResult(5)){
+					try {
+						Reply(status);
+					} catch (Throwable e) {
+						// TODO 自動生成された catch ブロック
+						e.printStackTrace();
+					}
 				}
-			}
-	        }
+			    }
+		} catch (IllegalStateException | TwitterException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 
 	@Override

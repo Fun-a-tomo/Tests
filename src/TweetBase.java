@@ -26,6 +26,8 @@ public class TweetBase implements Runnable {
 	Random ran;
 	int i;
 	List<String> selfy = new ArrayList<String>();
+	long sleeptime = 100000L;
+
 
 	public TweetBase()throws TwitterException, IOException {
 		twi = new TwitterFactory().getInstance();
@@ -36,17 +38,30 @@ public class TweetBase implements Runnable {
 		Following();
 		}
 
+	//定期イベントごとを記載
 	@Override
 	public void run() {
+
+		int follow_count = 0;
+
 		// TODO 自動生成されたメソッド・スタブ
 		while(true){
-			if(RandomResult(10)){
+			//SelfTweet
+			if(RandomResult(1)){
 				SelfyTweet();
 			}
+
 			System.out.println("Random Result = " + i);
 			try {
-				Thread.sleep(1000000);
-			} catch (InterruptedException e) {
+				//Re-Follow
+				if(follow_count>11){
+					Following();
+					follow_count = 0;
+				}
+
+				Thread.sleep(sleeptime);
+				follow_count++;
+			} catch (InterruptedException | TwitterException e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
 			}

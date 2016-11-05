@@ -18,7 +18,6 @@ public class MorphAnal {
 		this.finalize();
 	}
 
-
 	public void MorphAnalResult(){
 		for (Token token : tokens) {
 		    System.out.println("==================================================");
