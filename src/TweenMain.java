@@ -9,23 +9,28 @@ import twitter4j.TwitterStreamFactory;
 
 public class TweenMain {
 	static String account = "";
-	public static void main(String[] args) throws Throwable {
+	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
 		boolean FOA = false;
-
-		//テストコード試験
-		if(FOA){
-			TweetBase twi = new TweetBase();
-		}
-		else{
-			ExtStreamListener esl = new ExtStreamListener(account);
-			Thread thread = new Thread(esl);
-
-			getConfigure();
-			TwitterStream twi = new TwitterStreamFactory().getInstance();
-			twi.addListener(esl);
-			twi.user();
-			thread.start();
+			
+			try{
+	
+			//テストコード試験
+			if(FOA){
+				TweetBase twi = new TweetBase();
+			}
+			else{
+				ExtStreamListener esl = new ExtStreamListener(account);
+				Thread thread = new Thread(esl);
+	
+				getConfigure();
+				TwitterStream twi = new TwitterStreamFactory().getInstance();
+				twi.addListener(esl);
+				twi.user();
+				thread.start();
+			}
+		}catch(Exception e){
+			
 		}
 	}
 
