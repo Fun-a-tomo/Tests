@@ -17,13 +17,15 @@ public class TweenMain {
 	
 			//テストコード試験
 			if(FOA){
-				TweetBase twi = new TweetBase();
+				getConfigure();
+				TweetBase twi = new ExtStreamListener(account);
 			}
 			else{
+				getConfigure();
 				ExtStreamListener esl = new ExtStreamListener(account);
 				Thread thread = new Thread(esl);
 	
-				getConfigure();
+				
 				TwitterStream twi = new TwitterStreamFactory().getInstance();
 				twi.addListener(esl);
 				twi.user();

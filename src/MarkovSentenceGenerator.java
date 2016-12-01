@@ -25,7 +25,7 @@ public class MarkovSentenceGenerator {
 	/**
 	 * 文章生成時に最大何個のトークンを接続するか
 	 */
-	private static final int MAX_WORD_COUNT = 30;
+	private static final int MAX_WORD_COUNT = 15;
 	/**
 	 * トークンの組のリスト
 	 */

@@ -27,6 +27,7 @@ public class TweetBase implements Runnable {
 	int i;
 	List<String> selfy = new ArrayList<String>();
 	long sleeptime = 100000L;
+	MarkovSentenceGenerator msg;
 
 
 	public TweetBase()throws TwitterException, IOException {
@@ -36,6 +37,7 @@ public class TweetBase implements Runnable {
 		ran = new Random(now.getTimeInMillis());
 		InputSelfy();
 		Following();
+		msg = new MarkovSentenceGenerator(10);
 		}
 
 	//定期イベントごとを記載

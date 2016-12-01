@@ -20,6 +20,7 @@ public class ExtStreamListener extends TweetBase implements  StatusListener {
 	public ExtStreamListener(String conf) throws TwitterException, IOException {
 		super();
 		account = conf;
+		System.out.println(this.user.getScreenName());
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
@@ -50,48 +51,40 @@ public class ExtStreamListener extends TweetBase implements  StatusListener {
 	@Override
 	public void onStatus(Status arg0) {
 		int i = 0;
-		// TODO 自動生成されたメソッド・スタブ
-		/*
-		try {
-			stat = twi.updateStatus("enjoy step"+i);
-		} catch (TwitterException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-		*/
-        Double lat = null;
-        Double lng = null;
-        String[] urls = null;
-        String[] medias = null;
-        Status status = arg0;
-        User user = status.getUser();
-        
-	    //. 位置情報が含まれていれば取得する
-	    GeoLocation location = status.getGeoLocation();
-	    if( location != null ){
-	        double dlat = location.getLatitude();
-	        double dlng = location.getLongitude();
-	        lat = dlat;
-	        lng = dlng;
-	    }
-        
-	    long id = status.getId(); //. ツイートID
-	    String text = status.getText(); //. ツイート本文
-	    long userid = user.getId(); //. ユーザーID
-	    String username = user.getScreenName(); //. ユーザー表示名
-	    Date created = status.getCreatedAt(); //. ツイート日時
+		try{
+	        Double lat = null;
+	        Double lng = null;
+	        String[] urls = null;
+	        String[] medias = null;
+	        Status status = arg0;
+	        User user = status.getUser();
 
-	    try{
-        //自ツイートは無視
-        	if(containSelfy(text)){
-        		
-        	}
-        	else if(!user.getScreenName().equals(twi.getScreenName())){
+		    //. 位置情報が含まれていれば取得する
+		    GeoLocation location = status.getGeoLocation();
+		    if( location != null ){
+		        double dlat = location.getLatitude();
+		        double dlng = location.getLongitude();
+		        lat = dlat;
+		        lng = dlng;
+		    }
+
+		    long id = status.getId(); //. ツイートID
+		    String text = status.getText(); //. ツイート本文
+		    long userid = user.getId(); //. ユーザーID
+		    String username = user.getScreenName(); //. ユーザー表示名
+		    Date created = status.getCreatedAt(); //. ツイート日時
+		    boolean tome = containSelfy(text);
+
+        	if(!username.equals(this.user.getScreenName()) && !tome){
 
 			    System.out.println( "id = " + id + ", username = " + username + ", text = " + text );
 				if(RandomResult(5)){
-						Reply(status);
+					Reply(status);
 			    }
+        	}
+        	//自ツイートは無視
+        	else if(tome){
+				MentionReply(status);
 			}
 	    }catch(Throwable e){
 	    	new Throwable(e);
@@ -110,10 +103,10 @@ public class ExtStreamListener extends TweetBase implements  StatusListener {
 
 	}
 	*/
-	private void Reply(Status stat) throws Throwable{
+	private String Reply(Status stat) throws Throwable{
 		MorphAnal ma = new MorphAnal(stat.getText());
 		String result;
-		String tweet;
+		String tweet = null;
 		RepMessage rm = new RepMessage(ma.MorphAnalStart());
 		result = rm.Message();
 		ma.EndMorphAnal();
@@ -121,11 +114,30 @@ public class ExtStreamListener extends TweetBase implements  StatusListener {
 			tweet="@"+stat.getUser().getScreenName()+" "+stat.getUser().getName()+"、"+result+"んかワレ！";
 
 			twi.updateStatus(new StatusUpdate(tweet).inReplyToStatusId(stat.getId()));
+
 		}
+
+		return tweet;
 	}
-	
+
 	private boolean containSelfy(String twit) throws IllegalStateException, TwitterException {
+		System.out.println("contain is :"+twit.contains("@"+twi.getScreenName()));
 		return twit.contains("@"+twi.getScreenName());
+	}
+
+	private String MentionReply(Status stat) throws TwitterException{
+		String tweet = null;
+		String status = cutInMe(stat.getText());
+		msg.addSentence(status);
+
+		System.out.println(status);
+		tweet = "@"+stat.getUser().getScreenName()+" "+msg.generateSentence();
+		twi.updateStatus(new StatusUpdate(tweet).inReplyToStatusId(stat.getId()));
+		return tweet;
+	}
+
+	private String cutInMe(String stat) throws IllegalStateException, TwitterException{
+		return stat.replace("@"+twi.getScreenName(), "");
 	}
 }
 
